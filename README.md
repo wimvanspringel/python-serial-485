@@ -12,7 +12,10 @@ The python code produces CSV files that can be configured to have header & paylo
 The python code runs on a linux/windows machine with a USB RS-485 transceiver. That transceiver is hooked up in series with the HP's internal RS485 bus using JST-SM connectors as used in the HP. 
 ## Assumptions
 - Bus: RS485, half duplex, 9600, 8N1
-- Packet: no known size or address inside the packets, but they have 2 bytes of modbus crc-16 in little endian at the end
+- Packet: no size or address field found inside the packets
+- All Packets have a unique 8-byte header
+- All Packets have 2 bytes of modbus crc-16 in little endian at the end of the packet
+- Packet sizes 8, 31, 65 185, 189 are the observed sizes 
 - Master starts tx with packet, slave responds with packet
 - Timeout – 100-150 ms (unverified)
 - If slave response within timeout, new master tx
@@ -37,3 +40,23 @@ The result of this test sequence can be found in seq1-01.csv in the repo
 - 01:50 - HP POWER supply switched off
 - 02:10 - STOP python logging
 
+## Message Table
+So far, I identified 11 unique master headers (8-byte), and 7 unique slave headers 
+- MA_1 : size: 8, header : 01030bb9001e1603, 
+- SL_1 : size: 65, header : 01033c5746323030, 
+- SL_1_B : size: 65, header : 01033c0000000000, 
+- MA_2 : size: 8, header : 02030bb9001e1630, 
+- SL_2 : size: 189, header : 001007d1005ab457, 
+- MA_3 : size: 189, header : 011003e9005ab457, 
+- SL_3 : size: 8, header : 011003e9005a9182, 
+- MA_4 : size: 189, header : 01100443005ab457, 
+- SL_4 : size: 8, header : 01100443005ab0d6, 
+- MA_5 : size: 31, header : 01100bb9000b1657, 
+- SL_5 : size: 8, header : 01100bb9000b520f, 
+- MA_6 : size: 8, header : 010303e9005a1441, 
+- SL_6 : size: 185, header : 0103b45746323030, 
+- MA_7 : size: 189, header : 021003e9005ab457, 
+- MA_8 : size: 189, header : 001003e9005ab457, 
+- MA_9 : size: 8, header : 01030443005a3515, 
+- MA_10 : size: 189, header : 02100443005ab457, 
+- MA_11 : size: 189, header : 00100443005ab457, 

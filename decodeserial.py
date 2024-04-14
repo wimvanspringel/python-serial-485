@@ -273,6 +273,13 @@ PRINT_BYTECOUNT=True
 
 file_path = "./dumpserial.bin"
 
+# for i in range(len(knownheaders)):
+#    print('- ', sep='', end='')
+#    print(knownheaders[i][1],' : ', sep='', end='')
+#    print('size: ', knownheaders[i][2], ', header : ', sep='', end='')
+#    print_byte_packet_forced(knownheaders[i][0])
+#    print('')
+
 print_line_header()
 print_line("START PROGRAM WITH "+str(len(knownheaders))+" HEADERS KNOWN")
 
