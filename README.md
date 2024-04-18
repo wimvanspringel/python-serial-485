@@ -41,7 +41,7 @@ The result of this test sequence can be found in seq1-01.csv in the repo
 - 02:10 - STOP python logging
 
 ## Message Table
-So far, I identified 11 unique master headers (8-byte), and 7 unique slave headers 
+``So far, I identified 11 unique master headers (8-byte), and 7 unique slave headers 
 - MA_1 : size: 8, header : 01030bb9001e1603, 
 - SL_1 : size: 65, header : 01033c5746323030, 
 - SL_1_B : size: 65, header : 01033c0000000000, 
