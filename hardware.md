@@ -1,6 +1,8 @@
 # Hardware of the Hayward 81504 heatpump
 ![81504](https://github.com/wimvanspringel/python-serial-485/assets/23611681/05178b72-2590-4eca-a454-902c13c0df03)
 The 81504 pump is full inverter, 
+![schematics](https://github.com/wimvanspringel/python-serial-485/assets/23611681/ee066f25-2c3c-4c1b-a55b-10b58faa966c)
+
 # Introduction
 
 # Pictures in detail
