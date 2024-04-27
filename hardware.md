@@ -1,3 +1,7 @@
+# Hardware of the Hayward 81504 heatpump
+# Introduction
+
+# Pictures in detail
 ![19](https://github.com/wimvanspringel/python-serial-485/assets/23611681/f9787d59-f59e-47a8-87f8-83935f956508)
 ![18](https://github.com/wimvanspringel/python-serial-485/assets/23611681/fb2a0e1a-558f-4d2a-bd87-a57a5cb727ea)
 ![17](https://github.com/wimvanspringel/python-serial-485/assets/23611681/eb69b6d7-f4ac-4741-ab09-3fdf1e7d0ac2)
@@ -17,5 +21,3 @@
 ![03](https://github.com/wimvanspringel/python-serial-485/assets/23611681/6c56034a-616d-4869-a98a-d65187737033)
 ![02](https://github.com/wimvanspringel/python-serial-485/assets/23611681/4953231c-1a0a-49d8-99ff-d754fe642feb)
 ![01](https://github.com/wimvanspringel/python-serial-485/assets/23611681/1022d63b-b816-4f26-8168-cfd636e00a57)
-# Hardware of the Hayward 81504 heatpump
-# Introduction
