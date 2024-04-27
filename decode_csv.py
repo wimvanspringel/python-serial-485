@@ -1,19 +1,5 @@
-import python_serial    
+from python_serial import print_packet, print_packet_mask
 import csv
-
-class bcolors:
-    HEADER = '\033[95m'
-    PACKETDIFF = '\033[30;42m'
-    REDBG = '\033[30;41m'
-    GREENBG = '\033[30;42m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 def packet_compare(packet1:bytes,packet2:bytes,mask):
     for i in range(len(packet1)):
@@ -25,16 +11,6 @@ def packet_compare(packet1:bytes,packet2:bytes,mask):
 
     return mask
 
-def print_packet_mask(packet:bytes, packet_previous:bytes, mask):
-    for i in range(len(packet)):
-        if i in mask:
-            byte=packet[i:i+1]
-            byte_previous=packet_previous[i:i+1]
-            if byte==byte_previous:
-                print(byte.hex(), ' ', end='', sep='')
-            else:
-                print(bcolors.PACKETDIFF,byte.hex(), bcolors.ENDC, ' ', end='', sep='')
-
 packet_mask_SL1 = [15, 16, 26, 28]
 packet_mask_SL2 = [20, 36, 37, 38, 43, 44, 46, 50, 88, 90, 92, 94, 96, 98, 100, 119, 120, 124, 131, 132, 135, 136, 170]
 packet_mask_MA_4 = [90]
@@ -42,20 +18,20 @@ packet_mask_MA_4 = [90]
 # This is the list of packet ID's to test
 packets_to_test=[
                 # Packets to test and track  Mask list   previous packet
-#                ['MA_1',                     [],         b''],
-#                ['SL_1',                     [],         b''],
-#                ['MA_2',                     [],         b''],
-#                ['SL_2',                     [],         b''],
-#                ['MA_3',                     [],         b''],
-#                ['SL_3',                     [],         b''],
-#                ['MA_4',                     [],         b''],
-#                ['SL_4',                     [],         b''],
-#                ['MA_5',                     [],         b''],
-#                ['SL_5',                     [],         b''],
+                ['MA_1',                     [],         b''],
+                ['SL_1',                     [],         b''],
+  #              ['MA_2',                     [],         b''],
+  #              ['SL_2',                     [],         b''],
+                ['MA_3',                     [],         b''],
+                ['SL_3',                     [],         b''],
+                ['MA_4',                     [],         b''],
+                ['SL_4',                     [],         b''],
+                ['MA_5',                     [],         b''],
+                ['SL_5',                     [],         b''],
                 ['MA_6',                     [],         b''],
                 ['SL_6',                     [],         b''],
-#                ['MA_7',                     [],         b''],
-#                ['MA_8',                     [],         b''],
+ #               ['MA_7',                     [],         b''],
+ #               ['MA_8',                     [],         b''],
                 ['MA_9',                     [],         b'']
  #               ['MA_10',                    [],         b''],
  #               ['MA_11',                    [],         b'']
@@ -103,17 +79,27 @@ for i in range(1,len(packet_test_data)):
 for j in range(len(packets_to_test)):
     packets_to_test[j][MASK_ID].sort()
     packets_to_test[j][PREV_ID]=b''
-
+    # Print each mask 
     print(packets_to_test[j][TEST_ID], ' : ' , packets_to_test[j][MASK_ID])
 
+# Defines if we want to print all -or- only the masked
+print_with_mask = True
+
+# Print all packets  
 for i in range(len(packet_test_data)):
-    # for each packet to print we have to find the mask
+    # for each packet to print, find the corresponding mask
     for j in range(len(packets_to_test)):
         if packet_test_data[i][TEST_ID]==packets_to_test[j][TEST_ID]:
             packet_mask=packets_to_test[j][MASK_ID]
             break
     print(packet_test_data[i][TEST_ID],' : ',end='',sep='')
     print(packet_test_data[i][TIMESTAMP_ID],' : ',end='',sep='')
-    print_packet_mask(packet_test_data[i][PAYLOAD_ID],packets_to_test[j][PREV_ID],packet_mask)
+    
+    if print_with_mask==True:
+        print_packet_mask(packet_test_data[i][PAYLOAD_ID],packets_to_test[j][PREV_ID],packet_mask)
+    else:
+        print_packet(packet_test_data[i][PAYLOAD_ID])
     print('')
+    
+    # Set Previous packet for this packet type
     packets_to_test[j][PREV_ID]=packet_test_data[i][PAYLOAD_ID]

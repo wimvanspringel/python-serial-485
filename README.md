@@ -30,6 +30,21 @@ The python code runs on a linux/windows machine with a USB RS-485 transceiver. T
 - M1 only gets answered 5 secs after power up
 - M1 stops responding 2 secs after power down
 - Unit stays bus active 17 secs after powered down
+## Message Table
+So far, I identified 11 unique master headers, and 7 unique slave response headers, the actual 8-byte headers are in phyton_serial.py 
+| Master ID | Slave ID  | To | Return | Device | MA| SL | 
+| --- | --- | --- | --- | --- | --- | --- | 
+| MA1  | SL1 (SL1B) | 8   | 65  | Display | 01030bb9001e1603 | 01033c5746323030 | 
+| MA2  | SL2        | 8   | 189 | EEV     | 02030bb9001e1630 | 001007d1005ab457 |
+| MA3  | SL3        | 189 | 8   | Display | 011003e9005ab457 | 011003e9005a9182 |
+| MA4  | SL4        | 189 | 8   | Display | 01100443005ab457 | 01100443005ab0d6 | 
+| MA5  | SL5        | 31  | 8   | Display | 01100bb9000b1657 | 01100bb9000b520f |
+| MA6  | SL6        | 8   | 185 | Display | 010303e9005a1441 | 0103b45746323030 | 
+| MA7  |            | 189 |     | Unknown | 021003e9005ab457 | |
+| MA8  | SL2        | 189 | 189 | EEV     | 001003e9005ab457 | 001007d1005ab457 | 
+| MA9  | SL6        | 8   | 185 | Display | 01030443005a3515 | 0103b45746323030 |
+| MA10 |            | 189 |     | Unknown | 02100443005ab457 | |
+| MA11 | SL2        | 189 | 189 | EEV     | 00100443005ab457 | 001007d1005ab457 | 
 ## Test sequence 01
 The result of this test sequence can be found in seq1-01.csv in the repo
 - 00:00 - START python logging
@@ -39,24 +54,68 @@ The result of this test sequence can be found in seq1-01.csv in the repo
 - 01:30 - Heater OFF by pushing power buttor for 1 sec
 - 01:50 - HP POWER supply switched off
 - 02:10 - STOP python logging
+## Test sequence 02
+The result of this test sequence can be found in seq2-01.csv in the repo  
+Write down current temp on the display during the whole sequence, heat a bit to make it change  
+- 00:00 - START python logging
+- 00:10 - HP POWER supply switched on
+- 00:40 - Heater ON by pushing power button for 1 sec
+- 01:35 - Heater OFF by pushing power buttor for 1 sec
+- 01:50 - HP POWER supply switched off
+- 02:10 - STOP python logging
+## Packet Analysis
+### SL1
+Byte 15 : 0x80 once upon startup  
+Byte 16 : 0x01 once upon heater on and upon heater off/ 0x40 once upon temp change  
+Byte 24 : Hour field  
+Byte 26 : Minutes field  
+Byte 28 : Seconds field  
+### MA3
+Byte 20 :  
+Byte 24 :  
+Byte 26 :
+### MA4 
+Byte : 90  
+## Sequence Analysis
+### HP POWER supply switched on
+MA1/MA2/SL2 (No SL1 response)  
+*Approx 5 seconds later*  
+MA1/SL1 Byte 18 0x80 once  
+MA3/SL3  
+MA4/SL4  
+MA5/SL5  
+MA1/SL1/MA2/SL2 loops 
+### HP POWER supply switched off
+MA1/MA2/SL2 (No SL1 response) until psu dies after approx. 17 secs
+### Heater ON
+MA1/SL1 Byte 16 0X01  
+MA6/SL6  
+MA5/SL5   
 
-## Message Table
-So far, I identified 11 unique master headers (8-byte), and 7 unique slave response headers 
-- MA_1 :  size: 8,   header : 01030bb9001e1603  -> SL_1 (erratically an SL1_B)
-- SL_1 :  size: 65,  header : 01033c5746323030 
-- SL_1B : size: 65,  header : 01033c0000000000 
-- MA_2 :  size: 8,   header : 02030bb9001e1630  -> SL_2  
-- SL_2 :  size: 189, header : 001007d1005ab457
-- MA_3 :  size: 189, header : 011003e9005ab457  -> SL_3
-- SL_3 :  size: 8,   header : 011003e9005a9182
-- MA_4 :  size: 189, header : 01100443005ab457  -> SL_4 
-- SL_4 :  size: 8,   header : 01100443005ab0d6 
-- MA_5 :  size: 31,  header : 01100bb9000b1657  -> SL_5 
-- SL_5 :  size: 8,   header : 01100bb9000b520f 
-- MA_6 :  size: 8,   header : 010303e9005a1441  -> SL_6 
-- SL_6 :  size: 185, header : 0103b45746323030 
-- MA_7 :  size: 189, header : 021003e9005ab457 
-- MA_8 :  size: 189, header : 001003e9005ab457  -> SL_2 
-- MA_9 :  size: 8,   header : 01030443005a3515  -> SL_6
-- MA_10 : size: 189, header : 02100443005ab457
-- MA_11 : size: 189, header : 00100443005ab457  -> SL_2 
+*Approx 5 seconds later*  
+MA3/SL3  
+MA7/MA7/MA7  
+MA8/SL2  
+MA1/SL1/MA2/SL2 loops  
+
+*Approx 25 seconds later*  
+MA4/SL4  
+MA10/MA10/MA10  
+MA11/SL2  
+### Heater OFF
+SL1 responds on Byte 16 once 0X01  
+MA6/SL6  
+MA5/SL5   
+
+*Approx 5 seconds later*  
+MA3/SL3  
+MA7/MA7/MA7  
+MA8/SL2
+MA1/SL1/MA2/SL2 loops  
+
+### Set temperature change
+*Approx 5 seconds later*  
+MA1/SL1 Byte 16 0X40 once  
+MA9/SL6   
+MA5/SL5  
+MA1/SL1/MA2/SL2 loops 

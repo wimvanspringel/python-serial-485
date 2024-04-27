@@ -1,5 +1,21 @@
 from datetime import datetime
 
+class bcolors:
+    HEADER = '\033[95m'
+    PACKETDIFF = '\033[30;42m'
+    REDBG = '\033[30;41m'
+    GREENBG = '\033[30;42m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+print_colored = True
+
 def crc16_modbus(data : bytes, cutend:int):
     if data is None or cutend>len(data):
         return 0
@@ -46,19 +62,15 @@ def loop_over_headers(packet):
             return True,packet_index,slave_index
     return False,packet_index,slave_index
 
-def print_byte_packet(packet:bytes):
+def print_packet_header(packet:bytes):
     if (PRINT_PACKET_HEADER):
-        if PRINT_HEX_0X_MODE:
-            # print it in hex format with 0x and spaces
-            for i in range(len(packet)):
-                byte = packet[i:i+1]
-                print('0x',byte.hex(),' ',sep='', end='')    
-        else:    
-            # print in hex wo 0x and no spaces
-            print(packet.hex(),sep='', end='')    
-        print(PRINT_SEPARATOR,sep='', end='')
+        print_packet(packet)
 
-def print_byte_packet_forced(packet:bytes):
+def print_packet_payload(packet:bytes):
+    if (PRINT_PACKET_PAYLOAD):
+        print_packet(packet)
+
+def print_packet(packet:bytes):
     if PRINT_HEX_0X_MODE:
         # print it in hex format with 0x and spaces
         for i in range(len(packet)):
@@ -69,17 +81,18 @@ def print_byte_packet_forced(packet:bytes):
         print(packet.hex(),sep='', end='')    
     print(PRINT_SEPARATOR,sep='', end='')
 
-def print_byte_packet_payload(my_bytes):
-    if (PRINT_PACKET_PAYLOAD):
-        if PRINT_HEX_0X_MODE:
-            # print it in hex format with 0x and spaces
-            for i in range(len(my_bytes)):
-                byte = my_bytes[i:i+1]
-                print('0x',byte.hex(),' ',sep='', end='')    
-        else:    
-            # print in hex wo 0x and no spaces
-            print(my_bytes.hex(),sep='', end='')    
-        print(PRINT_SEPARATOR,sep='', end='')
+def print_packet_mask(packet:bytes, packet_previous:bytes, mask):
+    for i in range(len(packet)):
+        if i in mask:
+            byte=packet[i:i+1]
+            byte_previous=packet_previous[i:i+1]
+            if byte==byte_previous:
+                print(byte.hex(), ' ', end='', sep='')
+            else:
+                if print_colored:
+                    print(bcolors.PACKETDIFF,byte.hex(), bcolors.ENDC, ' ', end='', sep='')
+                else:
+                    print(byte.hex(), ' ', end='', sep='')
 
 def print_deltatime_stamp():
     global gl_delta_time
@@ -99,8 +112,8 @@ def print_packet_counter():
     if PRINT_PACKETCOUNT: print(str(gl_packet_counter), PRINT_SEPARATOR, sep='', end='')
 
 def print_packet_crc(calc_crc:bytes,packet_crc:bytes):
-    if PRINT_PACKET_CRC: print_byte_packet_forced(calc_crc)
-    if PRINT_PACKET_CRC: print_byte_packet_forced(packet_crc)
+    if PRINT_PACKET_CRC: print_packet(calc_crc)
+    if PRINT_PACKET_CRC: print_packet(packet_crc)
 
 def print_byte_counter():
     global gl_byte_counter
@@ -141,7 +154,7 @@ def log_unknownpacket(packet):
 
     print_line_stamp()
     print('*ERR: UNKNOWN*)', PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet_forced(packet)
+    print_packet(packet)
     print('')
 
 def log_slavewomaster(packet, p_index):
@@ -152,7 +165,7 @@ def log_slavewomaster(packet, p_index):
     
     print_line_stamp()
     print(knownheaders[p_index][1], '(*ERR: SLAVE WITHOUT MASTER*)', PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet(packet)
+    print_packet_header(packet)
     print('')
 
 def log_masterwhenslaveexpected(packet, p_index):
@@ -163,15 +176,15 @@ def log_masterwhenslaveexpected(packet, p_index):
     
     print_line_stamp()
     print(knownheaders[p_index][1], '(*ERR: MASTER WHEN SLAVE EXPECTED*)', PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet(packet)
+    print_packet_header(packet)
     print('')
 
 def log_crc_error(packet:bytes, calc_crc:bytes, packet_crc:bytes):
     print_line_stamp()
     print('*ERR: CRC ERROR*', PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet_forced(packet)
-    print_byte_packet_forced(calc_crc)
-    print_byte_packet_forced(packet_crc)
+    print_packet(packet)
+    print_packet(calc_crc)
+    print_packet(packet_crc)
     print('')
 
 def log_wrongslave(packet, p_index):
@@ -182,7 +195,7 @@ def log_wrongslave(packet, p_index):
     
     print_line_stamp()
     print(knownheaders[p_index][1], '(*ERR: UNEXPECTED SLAVE*)', PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet(packet)
+    print_packet_header(packet)
     print('')
 
 def log_masterpacket(header:bytes, payload:bytes, p_index:int):
@@ -191,9 +204,9 @@ def log_masterpacket(header:bytes, payload:bytes, p_index:int):
 
     print_line_stamp()
     print(knownheaders[p_index][1], PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet(header)
+    print_packet_header(header)
     if (payload):
-        print_byte_packet_payload(payload)
+        print_packet_payload(payload)
 
     crc_good,calc_crc,packet_crc= crc_check(header+payload)
     print_packet_crc(calc_crc,packet_crc)
@@ -208,9 +221,9 @@ def log_slavepacket(header, payload, p_index):
 
     print_line_stamp()
     print(knownheaders[p_index][1], PRINT_SEPARATOR, sep='', end='')
-    print_byte_packet(header)
+    print_packet_header(header)
     if (payload):
-        print_byte_packet_payload(payload)
+        print_packet_payload(payload)
     
     crc_good,calc_crc,packet_crc= crc_check(header+payload)
     print_packet_crc(calc_crc,packet_crc)
