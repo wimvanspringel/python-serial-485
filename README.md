@@ -80,7 +80,7 @@ Byte : 90
 ### HP POWER supply switched on
 MA1/MA2/SL2 (No SL1 response)  
 *Approx 5 seconds later*  
-MA1/SL1 Byte 18 0x80 once  
+MA1/SL1 Byte 18 0x80   
 MA3/SL3  
 MA4/SL4  
 MA5/SL5  
@@ -91,6 +91,7 @@ MA1/MA2/SL2 (No SL1 response) until psu dies after approx. 17 secs
 MA1/SL1 Byte 16 0X01  
 MA6/SL6  
 MA5/SL5   
+MA1/SL1/MA2/SL2 loops  
 
 *Approx 5 seconds later*  
 MA3/SL3  
@@ -102,15 +103,17 @@ MA1/SL1/MA2/SL2 loops
 MA4/SL4  
 MA10/MA10/MA10  
 MA11/SL2  
+MA1/SL1/MA2/SL2 loops  
 ### Heater OFF
-SL1 responds on Byte 16 once 0X01  
+MA1/SL1 Byte 16 0X01  
 MA6/SL6  
 MA5/SL5   
+MA1/SL1/MA2/SL2 loops  
 
 *Approx 5 seconds later*  
 MA3/SL3  
 MA7/MA7/MA7  
-MA8/SL2
+MA8/SL2  
 MA1/SL1/MA2/SL2 loops  
 
 ### Set temperature change
