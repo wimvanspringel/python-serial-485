@@ -39,3 +39,6 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![04](https://github.com/wimvanspringel/python-serial-485/assets/23611681/f70821b1-57b1-454a-949a-e8e739c307c2)
 ![03](https://github.com/wimvanspringel/python-serial-485/assets/23611681/6c56034a-616d-4869-a98a-d65187737033)
 ![02](https://github.com/wimvanspringel/python-serial-485/assets/23611681/4953231c-1a0a-49d8-99ff-d754fe642feb)
+
+![21](https://github.com/wimvanspringel/python-serial-485/assets/23611681/5b37a5f3-ac33-4790-a703-dc31faa43953)
+![20](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc46ded7-b22c-4169-9f77-cd463313d3ed)
