@@ -6,7 +6,7 @@ def packet_compare(packet1:bytes,packet2:bytes,mask):
         byte1=packet1[i]
         byte2=packet2[i]
         if byte1!=byte2:
-            if (i in mask)==False:
+            if i not in mask:
                 mask.append(i)
 
     return mask
@@ -95,7 +95,7 @@ for i in range(len(packet_test_data)):
     print(packet_test_data[i][TEST_ID],' : ',end='',sep='')
     print(packet_test_data[i][TIMESTAMP_ID],' : ',end='',sep='')
     
-    if print_with_mask==True:
+    if print_with_mask:
         print_packet_mask(packet_test_data[i][PAYLOAD_ID],packets_to_test[j][PREV_ID],packet_mask)
     else:
         print_packet(packet_test_data[i][PAYLOAD_ID])

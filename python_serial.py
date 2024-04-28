@@ -44,7 +44,7 @@ def read_bytes(read_file, read_nr_bytes):
     read_EOF=True
     read_buf=None
     read_buf=read_file.read(read_nr_bytes)
-    if (read_buf!=None) and (len(read_buf)==read_nr_bytes):
+    if (read_buf is not None) and (len(read_buf)==read_nr_bytes):
         gl_byte_counter+=read_nr_bytes
         read_EOF=False
     return read_EOF, read_buf
@@ -98,22 +98,28 @@ def print_deltatime_stamp():
     global gl_delta_time
     new_time=datetime.now()
     new_delta_time = new_time-gl_delta_time
-    if PRINT_DELTATIME: print(new_delta_time, PRINT_SEPARATOR, sep='', end='')
+    if PRINT_DELTATIME: 
+        print(new_delta_time, PRINT_SEPARATOR, sep='', end='')
     gl_delta_time = new_time
 
 def print_starttime_stamp():
     global gl_start_time
-    if PRINT_TIME_SINCE_START: print(datetime.now()-gl_start_time, PRINT_SEPARATOR, sep='', end='')
+    if PRINT_TIME_SINCE_START: 
+        print(datetime.now()-gl_start_time, PRINT_SEPARATOR, sep='', end='')
 
 def print_datetime_stamp():
-    if PRINT_TIMESTAMP: print(datetime.now(), PRINT_SEPARATOR, sep='', end='')
+    if PRINT_TIMESTAMP: 
+        print(datetime.now(), PRINT_SEPARATOR, sep='', end='')
 
 def print_packet_counter():
-    if PRINT_PACKETCOUNT: print(str(gl_packet_counter), PRINT_SEPARATOR, sep='', end='')
+    if PRINT_PACKETCOUNT: 
+        print(str(gl_packet_counter), PRINT_SEPARATOR, sep='', end='')
 
 def print_packet_crc(calc_crc:bytes,packet_crc:bytes):
-    if PRINT_PACKET_CRC: print_packet(calc_crc)
-    if PRINT_PACKET_CRC: print_packet(packet_crc)
+    if PRINT_PACKET_CRC: 
+        print_packet(calc_crc)
+    if PRINT_PACKET_CRC: 
+        print_packet(packet_crc)
 
 def print_byte_counter():
     global gl_byte_counter
@@ -124,15 +130,23 @@ def print_byte_counter():
         print(str(gl_byte_counter), PRINT_SEPARATOR, str(delta_bytes), PRINT_SEPARATOR, sep='', end='')
 
 def print_line_header():
-    if PRINT_TIMESTAMP: print("Date/Time", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_TIME_SINCE_START: print("Time since Start", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_DELTATIME: print("Time since Previous", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_BYTECOUNT: print("Byte Counter", PRINT_SEPARATOR,"Byte Diff Counter", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_PACKETCOUNT: print("Packet Counter", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_TIMESTAMP: 
+        print("Date/Time", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_TIME_SINCE_START: 
+        print("Time since Start", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_DELTATIME: 
+        print("Time since Previous", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_BYTECOUNT: 
+        print("Byte Counter", PRINT_SEPARATOR,"Byte Diff Counter", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_PACKETCOUNT: 
+        print("Packet Counter", PRINT_SEPARATOR, sep='', end='')
     print("Header Info", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_PACKET_HEADER: print("Packet Header", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_PACKET_PAYLOAD: print("Packet Payload", PRINT_SEPARATOR, sep='', end='')
-    if PRINT_PACKET_CRC: print("Calc CRC", PRINT_SEPARATOR,"Packet CRC", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_PACKET_HEADER: 
+        print("Packet Header", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_PACKET_PAYLOAD: 
+        print("Packet Payload", PRINT_SEPARATOR, sep='', end='')
+    if PRINT_PACKET_CRC: 
+        print("Calc CRC", PRINT_SEPARATOR,"Packet CRC", PRINT_SEPARATOR, sep='', end='')
     print('')
 
 def print_line_stamp():
@@ -212,7 +226,7 @@ def log_masterpacket(header:bytes, payload:bytes, p_index:int):
     print_packet_crc(calc_crc,packet_crc)
     print('')
     
-    if (crc_good==False):
+    if (crc_good is False):
         log_crc_error(header+payload, calc_crc,packet_crc)
 
 def log_slavepacket(header, payload, p_index):
@@ -229,7 +243,7 @@ def log_slavepacket(header, payload, p_index):
     print_packet_crc(calc_crc,packet_crc)
     print('')
     
-    if (crc_good==False):
+    if (crc_good is False):
         log_crc_error(header+payload, calc_crc,packet_crc)
 
 knownheaders = [
