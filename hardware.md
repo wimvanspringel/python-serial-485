@@ -25,6 +25,11 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![19](https://github.com/wimvanspringel/python-serial-485/assets/23611681/f9787d59-f59e-47a8-87f8-83935f956508)
 ![16](https://github.com/wimvanspringel/python-serial-485/assets/23611681/88c39ade-47b5-473c-9d2d-bdb233829cf3)
 
+## Display PCB Pictures
+MCU = STM8S003F3P6
+![21](https://github.com/wimvanspringel/python-serial-485/assets/23611681/5b37a5f3-ac33-4790-a703-dc31faa43953)
+![20](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc46ded7-b22c-4169-9f77-cd463313d3ed)
+
 ## Main PCB pictures
 ![15](https://github.com/wimvanspringel/python-serial-485/assets/23611681/cdf2adc0-ffa3-4bd4-8d1d-852e19a1e700)
 ![14](https://github.com/wimvanspringel/python-serial-485/assets/23611681/fdbddc15-79c0-4837-8924-fc455851b8c8)
@@ -39,6 +44,3 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![04](https://github.com/wimvanspringel/python-serial-485/assets/23611681/f70821b1-57b1-454a-949a-e8e739c307c2)
 ![03](https://github.com/wimvanspringel/python-serial-485/assets/23611681/6c56034a-616d-4869-a98a-d65187737033)
 ![02](https://github.com/wimvanspringel/python-serial-485/assets/23611681/4953231c-1a0a-49d8-99ff-d754fe642feb)
-
-![21](https://github.com/wimvanspringel/python-serial-485/assets/23611681/5b37a5f3-ac33-4790-a703-dc31faa43953)
-![20](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc46ded7-b22c-4169-9f77-cd463313d3ed)
