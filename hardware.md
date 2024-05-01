@@ -27,9 +27,8 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 
 ## Display PCB Pictures
 [MCU = STM8S207](manuals/stm8s207mb.pdf)  
-[RS485 transceiver = TI 6LB184](manuals/SN65LBC184.PDF)  
+[Low-side switch darlington array = TI ULN2003AI (multiple)](manuals/uln2003ai.pdf)  
 [EEPROM = FMD FT24C08A 8192 bits serial eeprom](manuals/ft24c08a.pdf)  
-
 ![21](https://github.com/wimvanspringel/python-serial-485/assets/23611681/5b37a5f3-ac33-4790-a703-dc31faa43953)
 ![20](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc46ded7-b22c-4169-9f77-cd463313d3ed)
 ![31](https://github.com/wimvanspringel/python-serial-485/assets/23611681/6d9e31e7-6c1e-4aa5-a088-5e56b1281857)
@@ -39,10 +38,9 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![27](https://github.com/wimvanspringel/python-serial-485/assets/23611681/f6503874-347c-4bfb-8210-b4921357df60)
 
 ## Main PCB pictures
-[MCU = renesas 44-pin R5F100FFA](manuals/rl78g13-datasheet.pdf)
+[MCU = renesas 44-pin R5F100FFA](manuals/rl78g13-datasheet.pdf)  
 [RS485 transceiver = TI SN65LBC184](manuals/SN65LBC184.PDF)  
-[Low-side switch darlington array = TI ULN2003AI (multiple)](manuals/ULN2003AI.pdf)
-
+[Low-side switch darlington array = TI ULN2003AI (multiple)](manuals/uln2003ai.pdf)  
 ![15](https://github.com/wimvanspringel/python-serial-485/assets/23611681/cdf2adc0-ffa3-4bd4-8d1d-852e19a1e700)
 ![14](https://github.com/wimvanspringel/python-serial-485/assets/23611681/fdbddc15-79c0-4837-8924-fc455851b8c8)
 ![12](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc3b4786-497d-46ff-b5b4-a06b01f76c4f)
@@ -61,5 +59,4 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![24](https://github.com/wimvanspringel/python-serial-485/assets/23611681/ff05418c-0db4-4bb8-85b2-cdf68387c239)
 ![23](https://github.com/wimvanspringel/python-serial-485/assets/23611681/a720cfb7-fb66-4c15-8d6c-c79fa98dc42d)
 ![22](https://github.com/wimvanspringel/python-serial-485/assets/23611681/08781c84-c12a-47d8-a493-dbe7a3c137c5)
-
 ![33](https://github.com/wimvanspringel/python-serial-485/assets/23611681/47a8c405-2fb8-4535-b8bc-c865e30ef0f9)
