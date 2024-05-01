@@ -28,7 +28,8 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ## Display PCB Pictures
 [MCU = STM8S207](manuals/stm8s207mb.pdf)  
 [Low-side switch darlington array = TI ULN2003AI (multiple)](manuals/uln2003ai.pdf)  
-[EEPROM = FMD FT24C08A 8192 bits serial eeprom](manuals/ft24c08a.pdf)  
+[EEPROM = FMD FT24C08A 8192 bits serial eeprom](manuals/FT24C08A_datasheet.pdf)  
+[RS485 transceiver = TI SN65LBC184](manuals/SN65LBC184.PDF)  
 ![21](https://github.com/wimvanspringel/python-serial-485/assets/23611681/5b37a5f3-ac33-4790-a703-dc31faa43953)
 ![20](https://github.com/wimvanspringel/python-serial-485/assets/23611681/bc46ded7-b22c-4169-9f77-cd463313d3ed)
 ![31](https://github.com/wimvanspringel/python-serial-485/assets/23611681/6d9e31e7-6c1e-4aa5-a088-5e56b1281857)
