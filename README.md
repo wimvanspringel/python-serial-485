@@ -78,6 +78,8 @@ Byte 26 :
 Byte : 90  
 ## Sequence Analysis
 ### HP POWER supply switched on
+![start](https://github.com/wimvanspringel/python-serial-485/assets/23611681/91edca8e-bbd3-41e8-a91e-c993bfc3f4b5)
+
 MA1/MA2/SL2 (No SL1 response)  
 *Approx 5 seconds later*  
 MA1/SL1 Byte 18 0x80   
