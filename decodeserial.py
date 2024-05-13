@@ -3,11 +3,7 @@ from python_serial import knownheaders, print_line_header, print_line, read_byte
 
 from datetime import datetime
 
-# Global state variables for processing
-END_OF_FILE=False   # State variable to indicate end of file reached
-SYNC=False          # State variable to indicate processing found a known masterpacket header 
 
-file_path = "./dumpserial.bin"
 
 # for i in range(len(knownheaders)):
 #    print('- ', sep='', end='')
@@ -19,9 +15,20 @@ file_path = "./dumpserial.bin"
 print_line_header()
 print_line("START PROGRAM WITH "+str(len(knownheaders))+" HEADERS KNOWN")
 
-# serial_file = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with no timeout
-# while True:
-with open(file_path, "rb") as serial_file:
+# Global state variables for processing
+END_OF_FILE=False   # State variable to indicate end of file reached
+SYNC=False          # State variable to indicate processing found a known masterpacket header 
+file_path = "./dumpserial2.bin"
+serial_file_handle = None
+
+try:
+    # serial_file_handle = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with no timeout
+    serial_file_handle = open(file_path, "rb") 
+
+except IOError:
+    print_line("Couldnt open serial file handle")
+
+else:
     # Keep going until serial port breaks or file ends
     while END_OF_FILE==False:
         # This is the start of the SEEKING part, read enough bytes until we find a known masterpacket header
@@ -37,7 +44,7 @@ with open(file_path, "rb") as serial_file:
         slavepacket_header = b''
 
         # We start by reading 8 bytes 
-        END_OF_FILE, newbuf=read_bytes(serial_file,8)
+        END_OF_FILE, newbuf=read_bytes(serial_file_handle,8)
         if END_OF_FILE:
             SYNC=False
             break
@@ -57,7 +64,7 @@ with open(file_path, "rb") as serial_file:
             # If we havent found a known master packet header yet, read the next byte and loop again
             if SYNC==False:
                 # Read the next byte 
-                END_OF_FILE, nextbyte=read_bytes(serial_file,1)
+                END_OF_FILE, nextbyte=read_bytes(serial_file_handle,1)
                 if END_OF_FILE:
                     break
                 # And put that byte into the newbuf
@@ -85,7 +92,7 @@ with open(file_path, "rb") as serial_file:
                 slavepacket_header = b''
 
                 # Read next expected masterpacket header
-                END_OF_FILE, newbuf=read_bytes(serial_file,8)
+                END_OF_FILE, newbuf=read_bytes(serial_file_handle,8)
                 if END_OF_FILE:
                     SYNC=False
                     break
@@ -117,7 +124,7 @@ with open(file_path, "rb") as serial_file:
             masterpacket_size=knownheaders[masterpacket_index][2]
             if masterpacket_size > 8:
                 # Read remaining payload
-                END_OF_FILE, masterpacket_payload=read_bytes(serial_file,masterpacket_size-8)
+                END_OF_FILE, masterpacket_payload=read_bytes(serial_file_handle,masterpacket_size-8)
                 if END_OF_FILE:
                     SYNC=False
                     break
@@ -131,7 +138,7 @@ with open(file_path, "rb") as serial_file:
             # We know have a known and read a masterpacke, set the expected slave now
           
             # Read next expected slavepacket header
-            END_OF_FILE, newbuf=read_bytes(serial_file,8)
+            END_OF_FILE, newbuf=read_bytes(serial_file_handle,8)
             if END_OF_FILE:
                 SYNC=False
                 break            
@@ -168,7 +175,7 @@ with open(file_path, "rb") as serial_file:
                     slavepacket_size=knownheaders[slavepacket_index][2]
                     if slavepacket_size > 8:
                         # Read remaining payload
-                        END_OF_FILE, slavepacket_payload=read_bytes(serial_file,slavepacket_size-8)
+                        END_OF_FILE, slavepacket_payload=read_bytes(serial_file_handle,slavepacket_size-8)
                         if END_OF_FILE:
                             SYNC=False
                             break            
@@ -185,6 +192,8 @@ with open(file_path, "rb") as serial_file:
                 # We have found an unknown header, log it and back to SEEKING
                 log_unknownpacket(newbuf)
                 SYNC = False
+finally:
+    if serial_file_handle: serial_file_handle.close
 
 # End of Program
 print_line("END PROGRAM")
