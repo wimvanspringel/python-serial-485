@@ -249,7 +249,7 @@ def log_slavepacket(header, payload, p_index):
 knownheaders = [
     #       8-byte packet start (always expected unique)      Text       Length, Resp, Address 
     #                                                                               1 = Display, 2 = Unit, 3 = Unknown    
-    [bytes([0x01, 0x03, 0x0b, 0xb9, 0x00, 0x1e, 0x16, 0x03]), "MA_1",         8, 11,   1], # Master 1 
+    [bytes([0x01, 0x03, 0x0b, 0xb9, 0x00, 0x1e, 0x16, 0x03]), "MA_1",         8,  1,   1], # Master 1 
     [bytes([0x01, 0x03, 0x3c, 0x57, 0x46, 0x32, 0x30, 0x30]), "SL_1",        65, -1,   1], # Slave  1: 65 byte response 
     [bytes([0x01, 0x03, 0x3c, 0x00, 0x00, 0x00, 0x00, 0x00]), "SL_1B",       65, -1,   1], # Slave  1B: Alternate 65-byte response
     [bytes([0x02, 0x03, 0x0b, 0xb9, 0x00, 0x1e, 0x16, 0x30]), "MA_2",         8,  4,   2], # Master 2 
@@ -283,10 +283,10 @@ gl_start_time=datetime.now()
 
 # Global Print configuration settings
 PRINT_HEX_0X_MODE=False     # if True print hex with 0x and spaces in between
-PRINT_PACKET_HEADER=True   # State variable to print out packet headers as they come in
-PRINT_PACKET_PAYLOAD=True   # State variable to print out packet headers as they come in
+PRINT_PACKET_HEADER=False   # State variable to print out packet headers as they come in
+PRINT_PACKET_PAYLOAD=False   # State variable to print out packet headers as they come in
 PRINT_PACKETCOUNT=True
-PRINT_PACKET_CRC=True
+PRINT_PACKET_CRC=False
 PRINT_SEPARATOR=', '
 PRINT_TIMESTAMP=True
 PRINT_DELTATIME=True

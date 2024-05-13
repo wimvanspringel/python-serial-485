@@ -19,7 +19,7 @@ file_path = "./dumpserial.bin"
 print_line_header()
 print_line("START PROGRAM WITH "+str(len(knownheaders))+" HEADERS KNOWN")
 
-# serial_file = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with 10 second timeout
+# serial_file = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with no timeout
 # while True:
 with open(file_path, "rb") as serial_file:
     # Keep going until serial port breaks or file ends
@@ -143,7 +143,7 @@ with open(file_path, "rb") as serial_file:
             found=False
             found,packet_index,sl_packet_index=loop_over_headers(newbuf)
             if (found==True):
-                # We have found a known header
+                # We have found a known header, check if it is a master or a slave
                 if sl_packet_index != -1:
                     # We found a known masterpacket header, while we expected a slave !
                     log_masterwhenslaveexpected(newbuf, slavepacket_index)
