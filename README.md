@@ -46,12 +46,13 @@ So far, I identified 11 unique master headers, and 7 unique slave response heade
 | MA10 |            | 189 |     | Unknown | 02100443005ab457 | |
 | MA11 | SL2        | 189 | 189 | EEV     | 00100443005ab457 | 001007d1005ab457 | 
 ## Test sequence 00 (wo wif box)
+The result of this test sequence can be found in tst00_01.csv and tst00_02.csv in the repo
 - 00:00 - START python logging
 - 00:00 - HP POWER supply switched on
 - 00:40 - HP POWER supply switched off
 - 00:55 - STOP python logging
 ## Test sequence 01 (wo wif_box)
-The result of this test sequence can be found in seq1-01.csv in the repo
+The result of this test sequence can be found in tst01_01.csv in the repo
 - 00:00 - START python logging
 - 00:10 - HP POWER supply switched on
 - 00:40 - Heater ON by pushing power button for 1 sec
@@ -60,6 +61,7 @@ The result of this test sequence can be found in seq1-01.csv in the repo
 - 01:50 - HP POWER supply switched off
 - 02:10 - STOP python logging
 ## Test sequence 02 (wo wif box)
+The result of this test sequence can be found in tst02_01.csv in the repo
 - 00:00 - START python logging
 - 00:10 - HP POWER supply switched on
 - 00:40 - Heater ON by pushing power button for 1 sec
