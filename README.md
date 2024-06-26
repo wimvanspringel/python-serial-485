@@ -91,11 +91,11 @@ Byte 24 :
 Byte 26 :
 ### MA4 
 Byte : 90  
-## Sequence Analysis
+## Test Sequence 1 Analysis
 ### HP POWER supply switched on
 ![start](https://github.com/wimvanspringel/python-serial-485/assets/23611681/91edca8e-bbd3-41e8-a91e-c993bfc3f4b5)
 MA1/MA2/SL2 -  3x times - approx 5 secs later  
-MA1/SL1 - first SL1 response with Byte 18 0x80   
+MA1/SL1 - first SL1 response with Byte 18 0x80  
 MA3/SL3  
 MA4/SL4  
 MA5/SL5  

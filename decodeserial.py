@@ -18,12 +18,12 @@ print_line("START PROGRAM WITH "+str(len(knownheaders))+" HEADERS KNOWN")
 # Global state variables for processing
 END_OF_FILE=False   # State variable to indicate end of file reached
 SYNC=False          # State variable to indicate processing found a known masterpacket header 
-file_path = "./dumpserial2.bin"
+file_path = "./dumpserial.bin"
 serial_file_handle = None
 
 try:
-    # serial_file_handle = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with no timeout
-    serial_file_handle = open(file_path, "rb") 
+    serial_file_handle = serial.Serial('/dev/ttyUSB0',9600, timeout=None)  # open serial port, 9600, 8N1, blocking with no timeout
+    # serial_file_handle = open(file_path, "rb") 
 
 except IOError:
     print_line("Couldnt open serial file handle")
