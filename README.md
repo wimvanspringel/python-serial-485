@@ -45,7 +45,7 @@ So far, I identified 11 unique master headers, and 7 unique slave response heade
 | MA9  | SL6        | 8   | 185 | Display | 01030443005a3515 | 0103b45746323030 |
 | MA10 |            | 189 |     | Unknown | 02100443005ab457 | |
 | MA11 | SL2        | 189 | 189 | EEV     | 00100443005ab457 | 001007d1005ab457 | 
-## Test sequence 01
+## Test sequence 01 (wo wif_box)
 The result of this test sequence can be found in seq1-01.csv in the repo
 - 00:00 - START python logging
 - 00:10 - HP POWER supply switched on
@@ -54,15 +54,25 @@ The result of this test sequence can be found in seq1-01.csv in the repo
 - 01:30 - Heater OFF by pushing power buttor for 1 sec
 - 01:50 - HP POWER supply switched off
 - 02:10 - STOP python logging
-## Test sequence 02
-The result of this test sequence can be found in seq2-01.csv in the repo  
-Write down current temp on the display during the whole sequence, heat a bit to make it change  
+## Test sequence 02 (wo wif box)
 - 00:00 - START python logging
 - 00:10 - HP POWER supply switched on
 - 00:40 - Heater ON by pushing power button for 1 sec
 - 01:35 - Heater OFF by pushing power buttor for 1 sec
 - 01:50 - HP POWER supply switched off
 - 02:10 - STOP python logging
+## Test sequence 03 (w wifibox)
+- 00:00 - START python logging
+- 00:00 - HP POWER supply switched on
+- 00:35 - HP POWER supply switched off
+- 00:50 - STOP python logging
+## Test sequence 04 (w wifibox)
+- 00:00 - START python logging
+- 00:00 - HP POWER supply switched on
+- 00:35 - Heater ON in app
+- 00:55 - Heater OFF in app
+- 01:15 - HP POWER supply switched off
+- 01:30 - STOP python logging
 ## Packet Analysis
 ### SL1
 Byte 15 : 0x80 once upon startup  
