@@ -1,10 +1,13 @@
 # Hardware of the Hayward 81504 heatpump
+
 ## Introduction
+
 ![81504](https://github.com/wimvanspringel/python-serial-485/assets/23611681/05178b72-2590-4eca-a454-902c13c0df03)
 The 81504 pump is full inverter, swimming pool heat exchange pump.
 This version is the smallest 6.7 kW version of this model, but it has 5 versions with a highest power of 17,8 kW version.
 
 The main components are:
+
 - Display controller (rs-485 bus connected)
 - Compressor 
 - Main controller PCB 
@@ -15,9 +18,11 @@ The main components are:
 Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schematics seem to hint at an optional Wifi module. Internet research seems to lead to a Hayward Eyepool smart inverter wifi module [hwx26100016](https://www.zwemland.nl/hayward-warmtepomp-wifi-module-type-hwx26100016.html)
 
 ## Schematics
+
 ![schematics](https://github.com/wimvanspringel/python-serial-485/assets/23611681/ee066f25-2c3c-4c1b-a55b-10b58faa966c)
 
 ## Internal build-up pictures
+
 ![13](https://github.com/wimvanspringel/python-serial-485/assets/23611681/e85f6d15-e4e0-4e67-bfe6-b1cf704ccae4)
 ![18](https://github.com/wimvanspringel/python-serial-485/assets/23611681/fb2a0e1a-558f-4d2a-bd87-a57a5cb727ea)
 ![17](https://github.com/wimvanspringel/python-serial-485/assets/23611681/eb69b6d7-f4ac-4741-ab09-3fdf1e7d0ac2)
@@ -26,6 +31,7 @@ Display controller, EEV and Main PCB are connected by a single rs-485 bus. Schem
 ![16](https://github.com/wimvanspringel/python-serial-485/assets/23611681/88c39ade-47b5-473c-9d2d-bdb233829cf3)
 
 ## Display PCB Pictures
+
 [MCU = STM8S207](manuals/stm8s207mb.pdf)  
 [Low-side switch darlington array = TI ULN2003AI (multiple)](manuals/uln2003ai.pdf)  
 [EEPROM = FMD FT24C08A 8192 bits serial eeprom](manuals/FT24C08A_datasheet.pdf)  
